@@ -1,220 +1,150 @@
-* {
-    margin: 0;
-    padding: 0;
+html {
+
     box-sizing: border-box;
+    --bgColorMenu : #1d1d27;
+    --duration: .7s;    
+
+}
+.title h1{
+    text-align: center;
+    font-size: 50px;
+    font-weight: 900;
 }
 
-body {
-    overflow: hidden;
-    font-family: 'Poppins', sans-serif;
+html *,
+html *::before,
+html *::after {
+
+    box-sizing: inherit;
+
 }
 
-section {
+.body2{
+    
+    margin: 0;
     display: flex;
-    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
     align-items: center;
-    min-height: 100vh;
-    background: #1c1c25;
+    justify-content: center;
+    /* background-color: #ffb457; */
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color var(--duration);
+
 }
 
-section::before {
-    content: '';
-    position: absolute;
-    bottom: -40%;
-    left: 40%;
-    width: 600px;
-    height: 600px;
-    background: linear-gradient(rgb(4, 21, 250), rgb(238, 6, 18));
-    border-radius: 50%;
-}
+.menu{
 
-section::after {
-    content: '';
-    position: absolute;
-    bottom: 55%;
-    left: 25%;
-    width: 300px;
-    height: 300px;
-    background: linear-gradient(rgb(250, 102, 4), rgb(238, 6, 161));
-    border-radius: 50%; 
-}
-
-.card {
+    margin: 0;
+    display: flex;
+    /* Works well with 100% width  */
+    width: 32.05em;
+    font-size: 1.5em;
+    padding: 0 2.85em;
     position: relative;
-    width: 508px;
-    height: 314px;
-    transform-style: preserve-3d;
-    perspective: 500px;
-    z-index: 2;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bgColorMenu);
     
 }
 
-.card .face {
+.menu__item{
+    
+    all: unset;
+    flex-grow: 1;
+    z-index: 100;
+    display: flex;
+    cursor: pointer;
+    position: relative;
+    border-radius: 50%;
+    align-items: center;
+    will-change: transform;
+    justify-content: center;
+    padding: 0.55em 0 0.85em;
+    transition: transform var(--timeOut , var(--duration));
+    
+}
+
+.menu__item::before{
+    
+    content: "";
+    z-index: -1;
+    width: 4.2em;
+    height: 4.2em;
+    border-radius: 50%;
     position: absolute;
-    top: 0;
+    transform: scale(0);
+    transition: background-color var(--duration), transform var(--duration);
+    
+}
+
+
+.menu__item.active {
+
+    transform: translate3d(0, -.8em , 0);
+
+}
+
+.menu__item.active::before{
+    
+    transform: scale(1);
+    background-color: var(--bgColorItem);
+
+}
+
+.icon{
+    
+    width: 2.6em;
+    height: 2.6em;
+    stroke: white;
+    fill: transparent;
+    stroke-width: 1pt;
+    stroke-miterlimit: 10;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 400;
+    
+}
+
+.menu__item.active .icon {
+
+    animation: strok 1.5s reverse;
+    
+}
+
+@keyframes strok {
+
+    100% {
+
+        stroke-dashoffset: 400;
+
+    }
+
+}
+
+.menu__border{
+
     left: 0;
-    width: 100%;
-    height: 100%;
-    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.5);
-    border-radius: 15px;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(28px);
-    transform-style: preserve-3d;
-    transition: 1s;
-    backface-visibility: hidden;
-    border-top: 1px solid rgba(255, 255, 255, 0.4);
-    border-left: 1px solid rgba(255, 255, 255, 0.4);
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.card:hover .face.front {
-    transform: rotateY(180deg);
-}
-
-.card .face.back {
-    transform: rotateY(180deg);
-}
-
-.card:hover .face.back {
-    transform: rotateY(360deg);
-}
-
-.card .face.front::before {
-    content:'';
+    bottom: 99%;
+    width: 10.9em;
+    height: 2.4em;
     position: absolute;
-    bottom: 40px;
-    right: 40px;
-    width: 60px;
-    height: 60px;
-    background: #fff;
-    border-radius: 50%;
-    opacity: 0.5;
+    clip-path: url(#menu);
+    will-change: transform;
+    background-color: var(--bgColorMenu);
+    transition: transform var(--timeOut , var(--duration));
+    
 }
 
-.card .face.front::after {
-    content:'';
-    position: absolute;
-    bottom: 40px;
-    right: 80px;
-    width: 60px;
-    height: 60px;
-    background: #fff;
-    border-radius: 50%;
-    opacity: 0.7;
+.svg-container {
+
+    width: 0;
+    height: 0;
 }
 
-.card .face.front .debit {
-    position: absolute;
-    left: 40px;
-    top: 30px;
-    color: #fff;
-    font-weight: 500;
-}
 
-.card .face.front .bank {
-    position: absolute;
-    right: 40px;
-    top: 25px;
-    color: #fff;
-    font-weight: 500;
-    font-style: italic;
-    font-size: 24px;
-}
-
-.card .face.front .chip {
-    position: absolute;
-    top: 80px;
-    left: 50px;
-    max-width: 64px;
-}
-
-.card .face.front .number {
-    position: absolute;
-    bottom: 130px;
-    left: 40px;
-    color: #fff;
-    font-weight: 500;
-    letter-spacing: 6px;
-    font-size: 18px;
-    text-shadow: 0 2px 1px #0005;
-    font-family: 'Orbitron', sans-serif;
-}
-
-.card .face.front .valid {
-    position: absolute;
-    bottom: 90px;
-    left: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-weight: 300;
-    line-height: 1em;
-    text-align: right;
-}
-
-.card .face.front .valid span:last-child {
-    margin-left: 20px;
-    font-size: 16px;font-weight: 400;
-    letter-spacing: 2px;
-}
-
-.card .face.front .card-holder {
-    position: absolute;
-    bottom: 40px;
-    left: 40px;
-    color: #fff;
-    font-weight: 300;
-    font-size: 16px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-}
-
-.card .face.back .blackbar {
-    position: absolute;
-    top: 40px;
-    width: 100%;
-    height: 60px;
-    background: #000;
-}
-
-.card .face.back .cvvtext {
-    position: absolute;
-    top: 120px;
-    left: 30px;
-}
-
-.card .face.back .cvvtext .white-bar {
-    position: relative;
-    width: 400px;
-    height: 40px;
-    background: #fff;
-    margin-top: 5px;
-}
-
-.card .face.back .cvvtext .cvv {
-    position: relative;
-    top: -35px;
-    left: 345px;
-    background: #ccc;
-    color: #111;
-    width: 50px;
-    height: 30px;
-    font-weight: 600;
-    letter-spacing: 3px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.card .face.back .text {
-    position: absolute;
-    bottom: 30px;
-    left: 30px;
-    right: 30px;
-    color: #fff;
-    font-size: 10px;
-    line-height: 1. 4em;
-    font-weight: 300;
+@media screen and (max-width: 50em) {
+    .menu{
+        font-size: .8em;
+    }
 }
